@@ -34,7 +34,6 @@ namespace data {
 bool ExtractFromZIP(const std::string& filename,
                     const std::string& extract_dir,
                     const std::string& password = "",
-                    const bool always_overwrite = true,
                     const bool print_progress = true);
 
 }  // namespace data

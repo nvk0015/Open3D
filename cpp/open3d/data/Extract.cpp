@@ -41,7 +41,6 @@ static const std::unordered_map<std::string,
                                 std::function<bool(const std::string&,
                                                    const std::string&,
                                                    const std::string&,
-                                                   const bool always_overwrite,
                                                    const bool print_progress)>>
         file_extension_to_extract_function{
                 {"zip", ExtractFromZIP},
@@ -50,7 +49,6 @@ static const std::unordered_map<std::string,
 bool Extract(const std::string& filename,
              const std::string& extract_dir,
              const std::string& password,
-             const bool always_overwrite,
              const bool print_progress) {
     const std::string format =
             utility::filesystem::GetFileExtensionInLowerCase(filename);
@@ -66,10 +64,15 @@ bool Extract(const std::string& filename,
         return false;
     }
 
-    bool success = map_itr->second(filename, extract_dir, password,
-                                   always_overwrite, print_progress);
+    bool success =
+            map_itr->second(filename, extract_dir, password, print_progress);
 
-    utility::LogDebug("Extraction Successful.");
+    if (success) {
+        utility::LogDebug("Extraction Successful.");
+    } else {
+        utility::LogDebug("Extraction Failed.");
+    }
+
     return success;
 }
 

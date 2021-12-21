@@ -56,5 +56,11 @@ TEST(Extract, ExtractFromZIP) {
                           extract_dir, "", true));
 }
 
+TEST(Extract, ExtractFromLargeZIP) {
+    std::string file_path = "/home/rey/Downloads/test_large_data.zip";
+    std::string extract_dir = "/home/rey/";
+    EXPECT_TRUE(data::Extract(file_path, extract_dir, "", true));
+}
+
 }  // namespace tests
 }  // namespace open3d
